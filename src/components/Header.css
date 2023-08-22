@@ -1,0 +1,86 @@
+@keyframes login-animation {
+	0%,
+	100% {
+		transform: translateX(0);
+	}
+
+	10%,
+	30%,
+	50%,
+	70% {
+		transform: translateX(-4px);
+	}
+
+	20%,
+	40%,
+	60% {
+		transform: translateX(4px);
+	}
+
+	80% {
+		transform: translateX(3px);
+	}
+
+	90% {
+		transform: translateX(-3px);
+	}
+}
+
+.header-style {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100px;
+    margin: 20px;
+    border-radius: 50px;
+    background-color: #D9D9D9;
+}
+
+.logo-img-style {
+    cursor: pointer;
+    width: 150px;
+}
+
+.sign-up-style {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.login-style {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    gap: 5px;
+}
+
+
+.login-img-style {
+    width: 30px;
+}
+
+.login-img-style:hover {
+    animation: login-animation 1s ease 0s 1 normal forwards;
+}
+
+.register-style {
+    border-left: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    padding-left: 10px;
+    transition: border-color 0.4s ease;
+}
+
+.register-style:hover {
+    border-left-color: #13D51A;
+    border-bottom-color: #27CDF1;
+    padding-left: 10px;
+    cursor: pointer;
+    transition: border-color 0.4s ease;
+}
+
+.register-h3-tag {
+    position: relative;
+    top: 5px;
+}
