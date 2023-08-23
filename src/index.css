@@ -11,3 +11,8 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* in a global stylesheet or CSS file */
+.css-1xj4ldk, .css-17t4t6r { /* These classes might be different for you. They represent the modal's outer container */
+  z-index: 10000 !important; /* Setting a high z-index to ensure modal is on top */
+}
