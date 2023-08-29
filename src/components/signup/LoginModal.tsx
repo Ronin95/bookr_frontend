@@ -21,7 +21,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpenLogin, onCloseLogin }) =>
             </ModalBody>
         <ModalFooter>
             <ModalButton kind="tertiary" onClick={onCloseLogin}>Cancel</ModalButton>
-            <ModalButton onClick={onCloseLogin}>Okay</ModalButton>
+            <ModalButton onClick={onCloseLogin}>Log in</ModalButton>
         </ModalFooter>
     </Modal>
 );

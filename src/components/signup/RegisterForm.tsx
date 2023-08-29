@@ -21,7 +21,13 @@ function Negative() {
   );
 }
 
-export default function RegisterForm() {
+interface RegisterFormProps {
+  formRef?: React.RefObject<HTMLFormElement>;
+  onSubmit?: (formData: { username: string; email: string; password: string }) => void;
+}
+
+
+export default function RegisterForm({ formRef, onSubmit }: RegisterFormProps) {
   
   // Username state
   const [username, setUsername] = React.useState('');
@@ -46,17 +52,46 @@ export default function RegisterForm() {
     const userMail = event.currentTarget.value;
     setEmailValidity(validateEmail(userMail));
     setEmail(userMail);
-};
+  };
 
-const onPasswordChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const userPassword = event.currentTarget.value;
-    setPasswordValidity(userPassword.length >= 8);
-    setPassword(userPassword);
-};
+  const onPasswordChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const userPassword = event.currentTarget.value;
+      setPasswordValidity(userPassword.length >= 8);
+      setPassword(userPassword);
+  };
 
+  const handleRegister = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    console.log("Attempting registration...");
+    console.log({
+      username: username,
+      email: email,
+      password: password
+    });
+  }
+
+  // function registerUser(data: any) {
+  //   fetch('http://127.0.0.1:8000/authentication/users/', {
+  //       method: 'POST',
+  //       body: JSON.stringify(data),
+  //       headers: {
+  //           'Content-Type': 'application/json'
+  //       }
+  //   })
+  //   .then(response => response.json())
+  //   .then(data => {
+  //       console.log(data);
+  //       // Handle success actions here, like routing or showing a success message.
+  //   })
+  //   .catch(error => {
+  //     console.error('Error:', error);
+  //     // Handle errors here, like showing an error message to the user.
+  //   });
+  // }
 
   return (
-    <div>
+    <form ref={formRef} onSubmit={handleRegister}>
       {/* Username Input */}
       <FormControl
         label="Your username"
@@ -102,6 +137,6 @@ const onPasswordChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAr
           overrides={!isPasswordValid && passwordVisited ? { After: Negative } : {}}
         />
       </FormControl>
-    </div>
+    </form>
   );
 }
