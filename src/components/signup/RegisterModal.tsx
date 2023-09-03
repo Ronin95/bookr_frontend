@@ -2,9 +2,7 @@ import React from 'react';
 import {
     Modal,
     ModalHeader,
-    ModalBody,
-    ModalFooter,
-    ModalButton
+    ModalBody
 } from 'baseui/modal';
 import RegisterForm from './RegisterForm';
 
@@ -14,29 +12,27 @@ interface RegisterModalProps {
 }
 
 const RegisterModal: React.FC<RegisterModalProps> = ({ isOpenRegister, onCloseRegister }) => {
-    const formRef = React.createRef<HTMLFormElement>();
+    const [username, setUsername] = React.useState('');
+    const [email, setEmail] = React.useState('');
+    const [password, setPassword] = React.useState('');
 
-    const handleRegisterClick = () => {
-        if (formRef.current) {
-            formRef.current.submit();
-        }
+    const handleFormSubmit = (formData: { username: string; email: string; password: string }) => {
+        console.log("Registered user data:", formData);
+        onCloseRegister();  // Close the modal after registering (optional)
     };
-            
     
     return (
         <Modal onClose={onCloseRegister} isOpen={isOpenRegister}>
           <ModalHeader>New to Bookr? Join us.</ModalHeader>
           <ModalBody>
-            <RegisterForm formRef={formRef} onSubmit={handleRegisterClick} />
+            <RegisterForm 
+                onClose={onCloseRegister} 
+                onSubmit={handleFormSubmit}
+                setUsername={setUsername}
+                setEmail={setEmail}
+                setPassword={setPassword}
+            />
           </ModalBody>
-          <ModalFooter>
-            <ModalButton kind="tertiary" onClick={onCloseRegister}>
-                Cancel
-            </ModalButton>
-            <ModalButton type='button' onClick={handleRegisterClick}>
-                Register
-            </ModalButton>
-          </ModalFooter>
         </Modal>
     );
 }

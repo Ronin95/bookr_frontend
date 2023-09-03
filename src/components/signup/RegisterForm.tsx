@@ -4,6 +4,7 @@ import { Input } from 'baseui/input';
 import { useStyletron } from 'baseui';
 import { Alert } from 'baseui/icon';
 import { validate as validateEmail } from 'email-validator';
+import { ModalFooter, ModalButton } from 'baseui/modal';
 
 function Negative() {
   const [css, theme] = useStyletron();
@@ -24,11 +25,14 @@ function Negative() {
 interface RegisterFormProps {
   formRef?: React.RefObject<HTMLFormElement>;
   onSubmit?: (formData: { username: string; email: string; password: string }) => void;
+  onClose: () => void;
+  setUsername: (value: string) => void;
+  setEmail: (value: string) => void;
+  setPassword: (value: string) => void;
 }
 
 
 export default function RegisterForm({ formRef, onSubmit }: RegisterFormProps) {
-  
   // Username state
   const [username, setUsername] = React.useState('');
   const [usernameVisited, setUsernameVisited] = React.useState(false);
@@ -50,53 +54,36 @@ export default function RegisterForm({ formRef, onSubmit }: RegisterFormProps) {
 
   const onEmailChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const userMail = event.currentTarget.value;
-    setEmailValidity(validateEmail(userMail));
     setEmail(userMail);
+    setEmailValidity(validateEmail(userMail));
   };
 
   const onPasswordChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      const userPassword = event.currentTarget.value;
-      setPasswordValidity(userPassword.length >= 8);
-      setPassword(userPassword);
+    const userPassword = event.currentTarget.value;
+    setPassword(userPassword);
+    setPasswordValidity(userPassword.length >= 8);
   };
 
-  const handleRegister = (event: React.FormEvent<HTMLFormElement>) => {
+
+
+  const registerUser = (event: any) => {
     event.preventDefault();
-
-    console.log("Attempting registration...");
-    console.log({
-      username: username,
-      email: email,
-      password: password
-    });
+    console.log('Finished');
+    if (onSubmit) {
+      onSubmit({
+        username,
+        email,
+        password
+      });
+    }
   }
-
-  // function registerUser(data: any) {
-  //   fetch('http://127.0.0.1:8000/authentication/users/', {
-  //       method: 'POST',
-  //       body: JSON.stringify(data),
-  //       headers: {
-  //           'Content-Type': 'application/json'
-  //       }
-  //   })
-  //   .then(response => response.json())
-  //   .then(data => {
-  //       console.log(data);
-  //       // Handle success actions here, like routing or showing a success message.
-  //   })
-  //   .catch(error => {
-  //     console.error('Error:', error);
-  //     // Handle errors here, like showing an error message to the user.
-  //   });
-  // }
+  
+  
 
   return (
-    <form ref={formRef} onSubmit={handleRegister}>
+    <form ref={formRef} onSubmit={(e) => registerUser(e)}>
       {/* Username Input */}
-      <FormControl
-        label="Your username"
-        error={!username && usernameVisited ? 'Please input a valid username' : null}
-      >
+      <FormControl label="Your username" error={!username && usernameVisited ? 'Please input a valid username' : null}>
         <Input
           id="username-id"
           value={username}
@@ -108,10 +95,7 @@ export default function RegisterForm({ formRef, onSubmit }: RegisterFormProps) {
       </FormControl>
 
       {/* Email Input */}
-      <FormControl
-        label="Your email"
-        error={!isEmailValid && emailVisited ? 'Please input a valid email address' : null}
-      >
+      <FormControl label="Your email" error={!isEmailValid && emailVisited ? 'Please input a valid email address' : null} >
         <Input
           id="email-id"
           value={email}
@@ -123,10 +107,7 @@ export default function RegisterForm({ formRef, onSubmit }: RegisterFormProps) {
       </FormControl>
 
       {/* Password Input */}
-      <FormControl
-        label="Your password"
-        error={!isPasswordValid && passwordVisited ? 'Password should be at least 8 characters' : null}
-      >
+      <FormControl label="Your password" error={!isPasswordValid && passwordVisited ? 'Password should be at least 8 characters' : null} >
         <Input
           id="password-id"
           type="password"
@@ -137,6 +118,14 @@ export default function RegisterForm({ formRef, onSubmit }: RegisterFormProps) {
           overrides={!isPasswordValid && passwordVisited ? { After: Negative } : {}}
         />
       </FormControl>
+      <ModalFooter>
+        <ModalButton kind="tertiary" onClick={onclose}>
+            Cancel
+        </ModalButton>
+        <ModalButton type='submit'>
+            Register
+        </ModalButton>
+      </ModalFooter>
     </form>
   );
 }
