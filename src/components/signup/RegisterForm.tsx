@@ -64,11 +64,8 @@ export default function RegisterForm({ formRef, onSubmit }: RegisterFormProps) {
     setPasswordValidity(userPassword.length >= 8);
   };
 
-
-
   const registerUser = (event: any) => {
     event.preventDefault();
-    console.log('Finished');
     if (onSubmit) {
       onSubmit({
         username,
@@ -77,8 +74,6 @@ export default function RegisterForm({ formRef, onSubmit }: RegisterFormProps) {
       });
     }
   }
-  
-  
 
   return (
     <form ref={formRef} onSubmit={(e) => registerUser(e)}>

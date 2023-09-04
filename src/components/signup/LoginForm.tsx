@@ -4,6 +4,7 @@ import { Input } from 'baseui/input';
 import { useStyletron } from 'baseui';
 import { Alert } from 'baseui/icon';
 import { validate as validateEmail } from 'email-validator';
+import { ModalFooter, ModalButton } from 'baseui/modal';
 
 function Negative() {
   const [css, theme] = useStyletron();
@@ -21,7 +22,13 @@ function Negative() {
   );
 }
 
-export default function LoginForm() {
+interface LoginFormProps {
+  onClose: () => void;
+  onSubmit: (data: { email: string; password: string }) => void;
+}
+
+
+export default function LoginForm({ onClose, onSubmit }: LoginFormProps) {
   // Email state
   const [email, setEmail] = React.useState('');
   const [isEmailValid, setEmailValidity] = React.useState(false);
@@ -44,8 +51,15 @@ export default function LoginForm() {
     setPassword(value);
   };
 
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (isEmailValid && isPasswordValid) {
+        onSubmit({ email, password });
+    }
+};
+
   return (
-    <div>
+    <form onSubmit={handleLogin}>
       {/* Email Input */}
       <FormControl
         label="Your email"
@@ -76,6 +90,10 @@ export default function LoginForm() {
           overrides={!isPasswordValid && passwordVisited ? { After: Negative } : {}}
         />
       </FormControl>
-    </div>
+      <ModalFooter>
+        <ModalButton kind="tertiary" onClick={onClose}>Cancel</ModalButton>
+        <ModalButton type='submit'>Log in</ModalButton>
+      </ModalFooter>
+    </form>
   );
 }
