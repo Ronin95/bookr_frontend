@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
     Modal,
     ModalHeader,
@@ -11,10 +11,11 @@ interface LoginModalProps {
     onCloseLogin: () => void;
 }
 
-const LoginModal: React.FC<LoginModalProps> = ({ isOpenLogin, onCloseLogin }) => {
-    const handleLogin = (data: { email: string; password: string }) => {
-        console.log("User login data:", data);
-        onCloseLogin();  // Close the modal after logging in (you might want to add some logic here to handle actual authentication)
+const LoginModal: React.FC<LoginModalProps & { onSuccessfulLogin: (username: string) => void }> = ({ isOpenLogin, onCloseLogin, onSuccessfulLogin }) => {
+    const handleLogin = (data: { username: string; password: string }) => {
+      console.log("User login data:", data);
+      onSuccessfulLogin(data.username);
+      onCloseLogin();
     };
 
     return (
@@ -26,6 +27,5 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpenLogin, onCloseLogin }) =>
         </Modal>
     );
 };
-
 
 export default LoginModal;

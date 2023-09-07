@@ -11,14 +11,15 @@ interface RegisterModalProps {
     onCloseRegister: () => void;
 }
 
-const RegisterModal: React.FC<RegisterModalProps> = ({ isOpenRegister, onCloseRegister }) => {
+const RegisterModal: React.FC<RegisterModalProps & { onSuccessfulRegister: (username: string) => void }> = ({ isOpenRegister, onCloseRegister, onSuccessfulRegister }) => {
     const [username, setUsername] = React.useState('');
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
 
     const handleFormSubmit = (formData: { username: string; email: string; password: string }) => {
         console.log("Registered user data:", formData);
-        onCloseRegister();  // Close the modal after registering (optional)
+        onSuccessfulRegister(formData.username);
+        onCloseRegister();
     };
     
     return (
