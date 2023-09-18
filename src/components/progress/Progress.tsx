@@ -1,6 +1,11 @@
+import Header from "../header/Header";
+
 function Progress() {
     return(
-        <h1>Progress</h1>
+        <div>
+            <Header/>
+            <h1>Progress</h1>
+        </div>
     );
 }
 

@@ -2,7 +2,7 @@ import Header from './components/header/Header';
 import { Client as Styletron } from 'styletron-engine-atomic';
 import { Provider as StyletronProvider } from 'styletron-react';
 import { LightTheme, BaseProvider } from 'baseui';
-import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Library from './components/library/Library';
 import Tools from './components/tools/Tools';
 import Progress from './components/progress/Progress';

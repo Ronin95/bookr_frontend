@@ -5,9 +5,10 @@ function MainNavigation() {
         <header>
             <nav>
                 <ul>
-                    <li>Test<Link to="/library"></Link></li>
-                    <li>Test<Link to="/tools"></Link></li>
-                    <li>Test<Link to="/progress"></Link></li>
+                    <li><Link to="/">Home</Link></li>
+                    <li><Link to="/library">Library</Link></li>
+                    <li><Link to="/tools">AI Tools</Link></li>
+                    <li><Link to="/progress">Progress</Link></li>
                 </ul>
             </nav>
         </header>

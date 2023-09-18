@@ -1,6 +1,11 @@
+import Header from "../header/Header";
+
 function Tools() {
     return(
-        <h1>Tools</h1>
+        <div>
+            <Header/>
+            <h1>Tools</h1>
+        </div>
     );
 }
 

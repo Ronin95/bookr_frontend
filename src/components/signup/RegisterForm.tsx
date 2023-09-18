@@ -64,16 +64,43 @@ export default function RegisterForm({ formRef, onSubmit }: RegisterFormProps) {
     setPasswordValidity(userPassword.length >= 8);
   };
 
-  const registerUser = (event: any) => {
+  const registerUser = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (onSubmit) {
-      onSubmit({
-        username,
-        email,
-        password
-      });
-    }
-  }
+
+    fetch('/accounts/register/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username, email, password })
+    })
+    .then(res => {
+        if (!res.ok) {
+            // Convert the response to JSON, expecting the server to send an error message
+            return res.json().then(data => {
+                throw new Error(data.message || 'Failed to register');
+            });
+        }
+        return res.json();
+    })
+    .then(data => {
+        if(data.success) {
+            localStorage.setItem('token', data.token);
+            if (onSubmit) {
+                onSubmit({ username, email, password });
+            }
+        } else {
+            // if the 'success' flag is false. For now, just throwing a generic error.
+            throw new Error(data.message || 'Registration failed');
+        }
+    })
+    .catch(error => {
+      // Display the error to the user
+      alert(error.message);
+    });
+  };
+
+
 
   return (
     <form ref={formRef} onSubmit={(e) => registerUser(e)}>

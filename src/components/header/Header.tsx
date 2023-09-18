@@ -1,6 +1,4 @@
-// Header.tsx
-
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from '../../assets/img/logo-v1.png';
 import login from '../../assets/img/login.png';
 import './Header.css';
@@ -13,7 +11,26 @@ function Header() {
   const [isOpenRegister, openRegister] = useState(false);
   const [username, setUsername] = useState(''); // State to store logged-in user's name
 
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      // Fetch user details if a token exists
+      fetch('/accounts/details/', {
+        headers: {
+          'Authorization': `Bearer ${token}`, // assuming you're using Bearer token authentication
+        }
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.username) {
+          setUsername(data.username);
+        }
+      });
+    }
+  }, []); // This effect runs once, when the component mounts
+
   const handleLogout = () => {
+    localStorage.removeItem('token');
     setUsername(''); // Clear username on logout
   };
 

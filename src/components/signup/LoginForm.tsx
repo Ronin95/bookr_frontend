@@ -47,12 +47,47 @@ export default function LoginForm({ onClose, onSubmit }: LoginFormProps) {
     setPassword(value);
   };
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    
+    // Check if the username is filled and password meets the validation criteria
     if (username && isPasswordValid) {
-        onSubmit({ username, password });
+        fetch('/accounts/login/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username, password })
+        })
+        .then(res => {
+            if (!res.ok) {
+                // Convert the response to JSON, expecting the server to send an error message
+                return res.json().then(data => {
+                    throw new Error(data.message || 'Failed to log in');
+                });
+            }
+            return res.json();
+        })
+        .then(data => {
+            if(data.success) {
+                localStorage.setItem('token', data.token);
+                onSubmit({
+                  username,
+                  password: ''
+                });
+            } else {
+                // handle specific error messages sent by the server
+                throw new Error(data.message || 'Login failed');
+            }
+        })
+        .catch(error => {
+          // Display the error to the user
+          alert(error.message);
+        });
     }
   };
+
+
 
   return (
     <form onSubmit={handleLogin}>

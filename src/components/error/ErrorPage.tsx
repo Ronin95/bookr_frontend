@@ -1,16 +1,15 @@
-import Header from "../header/Header";
 import MainNavigation from "../MainNavigation";
+import "./ErrorPage.css";
 
 function ErrorPage() {
     return (
-        <>
-            <Header/>
-            <MainNavigation/>
+        <div className="errorPage-view">
             <main>
-                <h1>An error occured!</h1>
-                <p>Could not find this page!</p>
+                <h1>Could not find this page!</h1>
+                <p>Please navigate to one of the pages below</p>
             </main>
-        </>
+            <MainNavigation/>
+        </div>
     );
 }
 
