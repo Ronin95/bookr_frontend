@@ -67,7 +67,7 @@ export default function RegisterForm({ formRef, onSubmit }: RegisterFormProps) {
   const registerUser = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    fetch('/accounts/register/', {
+    fetch('http://127.0.0.1:8000/accounts/register/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -96,7 +96,7 @@ export default function RegisterForm({ formRef, onSubmit }: RegisterFormProps) {
     })
     .catch(error => {
       // Display the error to the user
-      alert(error.message);
+      console.log(error.message);
     });
   };
 

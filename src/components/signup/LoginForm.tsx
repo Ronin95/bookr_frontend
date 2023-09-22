@@ -27,6 +27,9 @@ interface LoginFormProps {
 }
 
 export default function LoginForm({ onClose, onSubmit }: LoginFormProps) {
+  // Login state
+  const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
+
   // Username state
   const [username, setUsername] = React.useState('');
   const [usernameVisited, setUsernameVisited] = React.useState(false);
@@ -52,7 +55,7 @@ export default function LoginForm({ onClose, onSubmit }: LoginFormProps) {
     
     // Check if the username is filled and password meets the validation criteria
     if (username && isPasswordValid) {
-        fetch('/accounts/login/', {
+        fetch('http://127.0.0.1:8000/accounts/login/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -75,19 +78,17 @@ export default function LoginForm({ onClose, onSubmit }: LoginFormProps) {
                   username,
                   password: ''
                 });
+                setErrorMessage(null);
             } else {
                 // handle specific error messages sent by the server
                 throw new Error(data.message || 'Login failed');
             }
         })
         .catch(error => {
-          // Display the error to the user
-          alert(error.message);
+          setErrorMessage('Username or password is wrong. Please check again.');
         });
     }
   };
-
-
 
   return (
     <form onSubmit={handleLogin}>
@@ -121,6 +122,8 @@ export default function LoginForm({ onClose, onSubmit }: LoginFormProps) {
           overrides={!isPasswordValid && passwordVisited ? { After: Negative } : {}}
         />
       </FormControl>
+
+      {errorMessage && <p style={{color: 'red'}}>{errorMessage}</p>}
 
       <ModalFooter>
         <ModalButton kind="tertiary" onClick={onClose}>Cancel</ModalButton>
