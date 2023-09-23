@@ -72,8 +72,10 @@ export default function LoginForm({ onClose, onSubmit }: LoginFormProps) {
             return res.json();
         })
         .then(data => {
+            localStorage.setItem('access_token', data.access_token)
+            localStorage.setItem('refresh_token', data.refresh_token)
             if(data.success) {
-                localStorage.setItem('token', data.token);
+                localStorage.setItem('token', data.access_token);
                 onSubmit({
                   username,
                   password: ''

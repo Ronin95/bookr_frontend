@@ -9,13 +9,15 @@ import LoginForm from './LoginForm';
 interface LoginModalProps {
     isOpenLogin: boolean;
     onCloseLogin: () => void;
+    onSuccessfulLogin: (username: string) => void;
 }
 
-const LoginModal: React.FC<LoginModalProps & { onSuccessfulLogin: (username: string) => void }> = ({ isOpenLogin, onCloseLogin, onSuccessfulLogin }) => {
+const LoginModal: React.FC<LoginModalProps> = ({ isOpenLogin, onCloseLogin, onSuccessfulLogin }) => {
+    
     const handleLogin = (data: { username: string; password: string }) => {
-      console.log("User login data:", data);
-      onSuccessfulLogin(data.username);
-      onCloseLogin();
+        // console.log('User login data', data);
+        onSuccessfulLogin(data.username);
+        onCloseLogin();
     };
 
     return (

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import logo from '../../assets/img/logo-v1.png';
 import login from '../../assets/img/login.png';
 import './Header.css';
@@ -15,7 +15,7 @@ function Header() {
     const token = localStorage.getItem('token');
     if (token) {
       // Fetch user details if a token exists
-      fetch('/accounts/details/', {
+      fetch('http://127.0.0.1:8000/accounts/details/', {
         headers: {
           'Authorization': `Bearer ${token}`, // assuming you're using Bearer token authentication
         }

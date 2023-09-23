@@ -85,7 +85,7 @@ export default function RegisterForm({ formRef, onSubmit }: RegisterFormProps) {
     })
     .then(data => {
         if(data.success) {
-            localStorage.setItem('token', data.token);
+            localStorage.setItem('token', data.access_token);
             if (onSubmit) {
                 onSubmit({ username, email, password });
             }

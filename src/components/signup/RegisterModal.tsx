@@ -17,7 +17,7 @@ const RegisterModal: React.FC<RegisterModalProps & { onSuccessfulRegister: (user
     const [password, setPassword] = React.useState('');
 
     const handleFormSubmit = (formData: { username: string; email: string; password: string }) => {
-        console.log("Registered user data:", formData);
+        // console.log("Registered user data:", formData);
         onSuccessfulRegister(formData.username);
         onCloseRegister();
     };
