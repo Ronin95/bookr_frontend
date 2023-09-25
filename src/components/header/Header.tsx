@@ -59,6 +59,8 @@ function Header() {
       )}
     </div>
   );
+
+  // Else when the user logs in then display the Main Navigation below the Header
 }
 
 export default Header;
