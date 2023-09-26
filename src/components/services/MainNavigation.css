@@ -1,0 +1,42 @@
+.overall {
+    border-style: dotted;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav {
+    display: flex;
+    gap: 200px;
+}
+
+a {
+    font-size: 28px;
+    list-style-type: none; 
+    text-decoration: none;
+}
+
+.txt-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.img-style {
+    width: 30px;
+}
+
+.rectangleBlue {
+    margin-top: 4px;
+    width: 150px;       
+    height: 15px;     
+    background-color: #27CDF1;   
+}
+
+.links-style {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}

@@ -1,4 +1,4 @@
-import MainNavigation from "../MainNavigation";
+import MainNavigation from "../services/MainNavigation";
 import "./ErrorPage.css";
 
 function ErrorPage() {
