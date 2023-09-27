@@ -6,8 +6,8 @@ import Tools from '../../assets/img/tools.png';
 
 function MainNavigation() {
     return (
-        <header className='overall'>
-            <nav>
+        <header>
+            <nav className='overall'>
                 <div className="links-style">
                     <div className='txt-logo'>
                         <img className='img-style' src={Library} alt="library-logo" />
@@ -15,6 +15,7 @@ function MainNavigation() {
                     </div>
                     <div className="rectangleBlue"></div>
                 </div>
+                <div className="rectangleGreen"></div>
                 <div className="links-style">
                     <div className='txt-logo'>
                         <img className='img-style' src={Tools} alt="tool-logo" />
@@ -22,6 +23,7 @@ function MainNavigation() {
                     </div>
                     <div className="rectangleBlue"></div>
                 </div>
+                <div className="rectangleGreen"></div>
                 <div className="links-style">
                     <div className='txt-logo'>
                         <img className='img-style' src={Progress} alt="progress-logo" />
