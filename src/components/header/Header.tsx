@@ -5,6 +5,7 @@ import './Header.css';
 import LoginModal from '../signup/LoginModal';
 import RegisterModal from '../signup/RegisterModal';
 import { ModalButton } from 'baseui/modal';
+import MainNavigation from '../services/MainNavigation';
 
 function Header() {
   const [isOpenLogin, openLogin] = useState(false);
@@ -35,15 +36,16 @@ function Header() {
   };
 
   return (
-    <div className='header-style'>
-      <img src={logo} alt="logo" className='logo-img-style'/>
-      {username ? (
-        // If user is logged in
-        <>
-          <h2>Welcome to Bookr, {username}</h2>
-          <ModalButton onClick={handleLogout}>Log out</ModalButton>
-        </>
-      ) : (
+    <div>
+      <div className='header-style'>
+        <img src={logo} alt="logo" className='logo-img-style'/>
+        {username ? (
+          // If user is logged in
+          <>
+            <h2>Welcome to Bookr, {username}</h2>
+            <ModalButton onClick={handleLogout}>Log out</ModalButton>
+          </>
+        ) : (
         // If no user is logged in
         <div className='sign-up-style'>
           <div className='login-style' onClick={() => openLogin(true)}>
@@ -57,6 +59,8 @@ function Header() {
           <RegisterModal isOpenRegister={isOpenRegister} onCloseRegister={() => openRegister(false)} onSuccessfulRegister={setUsername} />
         </div>
       )}
+      </div>
+      {username && <MainNavigation/>}
     </div>
   );
 

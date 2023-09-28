@@ -10,7 +10,6 @@ import RootLayout from './components/Root';
 import ErrorPage from './components/error/ErrorPage';
 import './components/services/axiosSetup';
 import { AuthProvider } from './components/services/AuthContext';
-import MainNavigation from './components/services/MainNavigation';
 
 const engine = new Styletron();
 
@@ -20,13 +19,12 @@ const App = () => {
             <BaseProvider theme={LightTheme}>
                 <AuthProvider>
                     <Router>
+                        <Header /> {/* Keep Header outside the Routes */}
                         <Routes>
                             <Route path="/" element={<RootLayout />}>
-                                <Route index element={<Header />} />
                                 <Route path="library" element={<Library />} />
                                 <Route path="tools" element={<Tools />} />
                                 <Route path="progress" element={<Progress />} />
-                                <Route path="main" element={<MainNavigation/>} />
                             </Route>
                             <Route path="*" element={<ErrorPage />} />
                         </Routes>
@@ -38,3 +36,5 @@ const App = () => {
 }
 
 export default App;
+
+

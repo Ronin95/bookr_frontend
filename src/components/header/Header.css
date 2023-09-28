@@ -84,3 +84,8 @@
     position: relative;
     top: 5px;
 }
+
+/* .header-after-login {
+    display: flex;
+    flex-direction: column;
+} */
