@@ -1,0 +1,73 @@
+
+.txt-logo-lib {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;    
+}
+
+.logo-lib {
+    padding-left: 20px;
+    width: 30px;
+}
+
+.library-container {
+    position: absolute;
+    width: 100%;
+    height: 75%;
+}
+
+.fileUploader-Viewer-style {
+    display: flex;
+    flex-direction: row;
+}
+
+.blue-line-lib {
+    margin-right: 5px;
+    margin-left: 5px; 
+    position: absolute;
+    top: 70px;
+    left: 0;
+    right: 0;
+    height: 10px; /* adjust thickness if needed */
+    background-color: #27CDF1; /* color of the blue line */
+    z-index: 0; /* to make sure the line is below the logo and text */
+}
+
+.fileUploader-style {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    width: 20%;
+    
+}
+
+.uploadedFiles-style {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+.PDFView {
+    margin-left: 20px;
+}
+
+.view-pdf-style {
+    width: 75vw;
+    height: 65vh;
+}
+
+.menu-img-style {
+    width: 25px;
+    cursor: pointer;
+}
+
+.files-styles {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 10px solid #13D51A ;
+    cursor: pointer;
+}

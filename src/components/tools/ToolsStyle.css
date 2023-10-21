@@ -1,0 +1,46 @@
+.tools-style {
+   margin-right: 5px;
+   margin-left: 5px; 
+}
+
+.txt-logo-tools {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;    
+}
+
+.logo-tools {
+    padding-left: 20px;
+    width: 30px;
+}
+
+.blue-line-tools {
+    margin-right: 5px;
+    margin-left: 5px; 
+    position: absolute;
+    top: 290px;
+    left: 0;
+    right: 0;
+    height: 10px; /* adjust thickness if needed */
+    background-color: #27CDF1; /* color of the blue line */
+    z-index: 0; /* to make sure the line is below the logo and text */
+}
+
+.menu-img-style {
+    width: 30px;
+}
+
+.files-styles {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 10px solid #13D51A;
+    cursor: pointer;
+}
+
+.tools-bar {
+    width: 25vw;
+    height: 100vh;
+}

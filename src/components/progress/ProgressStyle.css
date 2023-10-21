@@ -1,0 +1,29 @@
+.progress-style {
+    margin-right: 5px;
+    margin-left: 5px; 
+}
+
+.txt-logo-progress {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;    
+}
+
+.progress-bar {
+    width: 20vw;
+    height: 100vh;
+}
+
+.files-styles-progress {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 10px solid #13D51A;
+    cursor: pointer;
+}
+
+.img-style-progress {
+    width: 30px;
+}
