@@ -69,5 +69,11 @@
     justify-content: space-between;
     align-items: center;
     border-bottom: 10px solid #13D51A ;
+}
+
+.files-styles h3 {
     cursor: pointer;
+    width: 210px;
+    word-break: break-word;
+    overflow-wrap: break-word;
 }

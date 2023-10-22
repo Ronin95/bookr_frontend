@@ -3,6 +3,8 @@ import LibraryImg from '../../assets/img/library.png';
 import DeletePDf from '../../assets/img/deletePDF.png';
 import './LibraryStyle.css';
 import { FileUploader } from "baseui/file-uploader";
+import axios from 'axios';
+
 
 function useInterval(callback: () => void, delay: number | null) {
     const savedCallback = useRef(callback);
@@ -46,9 +48,40 @@ function useFakeProgress(): [number, () => void, () => void] {
     return [fakeProgress, startFakeProgress, stopFakeProgress];
 }
 
+function onFileUpload(acceptedFiles: (string | Blob)[]) {
+    const formData = new FormData();
+    formData.append('file', acceptedFiles[0]);
+
+    axios.post('http://127.0.0.1:8000/pdfUpload/upload/', formData)
+        .then((response: any) => {
+            console.log('File uploaded successfully');
+        })
+        .catch((error: any) => {
+            console.error('There was an error uploading the file!', error);
+        });
+}
+
 function Library() {
     const [errorMessage, setErrorMessage] = useState<string>("");
     const [progressAmount, startFakeProgress, stopFakeProgress] = useFakeProgress();
+    type FileObject = {
+        file: any; name: string 
+};
+    const [uploadedFiles, setUploadedFiles] = useState<FileObject[]>([]);
+
+
+    useEffect(() => {
+        axios.get('http://127.0.0.1:8000/pdfUpload/list/')
+            .then(response => {
+                setUploadedFiles(response.data);
+            });
+    }, []);
+
+    useEffect(() => {
+        if (errorMessage) {
+            window.location.reload();
+        }
+    }, [errorMessage]);
 
     return (
         <div className="library-container">
@@ -59,10 +92,16 @@ function Library() {
             </div>
             <div className="fileUploader-Viewer-style">
                 <div className="fileUploader-style">
+                    <form method="post" encType="multipart/form-data" onSubmit={(e) => e.preventDefault()}>
                     <FileUploader
                         onCancel={() => stopFakeProgress()}
                         onDrop={(acceptedFiles, rejectedFiles) => {
-                            startFakeProgress();
+                            if (acceptedFiles[0]?.type === 'application/pdf') {
+                                startFakeProgress();
+                                onFileUpload(acceptedFiles);
+                            } else {
+                                setErrorMessage('Please upload a PDF file only.');
+                            }
                         }}
                         progressAmount={progressAmount}
                         progressMessage={
@@ -72,20 +111,17 @@ function Library() {
                         }
                         errorMessage={errorMessage}
                     />
+                    </form>
+                    <h5>Choose PDF files only, otherwise page gets refreshed.</h5>
                     <div className="uploadedFiles-style">
-                        <div className="files-styles">
-                            <h2>Only</h2>
-                            <img className="menu-img-style" src={DeletePDf} alt="delete-PDF" />
-                        </div>
-                        <div className="files-styles">
-                            <h2>3 files</h2>
-                            <img className="menu-img-style" src={DeletePDf} alt="delete-PDF" />
-                        </div>
-                        <div className="files-styles">
-                            <h2>allowed</h2>
-                            <img className="menu-img-style" src={DeletePDf} alt="delete-PDF" />
-                        </div>
+                        {uploadedFiles.map((file: FileObject, index: number) => (
+                            <div className="files-styles" key={index}>
+                                <h3>{file.file.split('/media/uploadedPDFs/')[1]}</h3>
+                                <img className="menu-img-style" src={DeletePDf} alt="delete-PDF" />
+                            </div>
+                        ))}
                     </div>
+                    <h5>Only 3 PDFs possible for upload.</h5>
                 </div>
                 <div className="PDFView">
                     <div className="view-pdf-style">
