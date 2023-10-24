@@ -48,27 +48,37 @@ function useFakeProgress(): [number, () => void, () => void] {
     return [fakeProgress, startFakeProgress, stopFakeProgress];
 }
 
-function onFileUpload(acceptedFiles: (string | Blob)[]) {
-    const formData = new FormData();
-    formData.append('file', acceptedFiles[0]);
 
-    axios.post('http://127.0.0.1:8000/pdfUpload/upload/', formData)
-        .then((response: any) => {
-            console.log('File uploaded successfully');
-        })
-        .catch((error: any) => {
-            console.error('There was an error uploading the file!', error);
-        });
-}
 
 function Library() {
     const [errorMessage, setErrorMessage] = useState<string>("");
     const [progressAmount, startFakeProgress, stopFakeProgress] = useFakeProgress();
     type FileObject = {
+        id: number;
         file: any; name: string 
 };
     const [uploadedFiles, setUploadedFiles] = useState<FileObject[]>([]);
 
+    function onDeleteFile(id: number) {
+        axios.delete(`http://127.0.0.1:8000/pdfUpload/delete/${id}/`)
+            .then(response => {
+                setUploadedFiles((prevFiles: any[]) => prevFiles.filter((file: { id: number; }) => file.id !== id));
+            });
+    }
+
+    function onFileUpload(acceptedFiles: (string | Blob)[]) {
+        const formData = new FormData();
+        formData.append('file', acceptedFiles[0]);
+    
+        axios.post('http://127.0.0.1:8000/pdfUpload/upload/', formData)
+            .then((response: any) => {
+                console.log('File uploaded successfully');
+                setUploadedFiles(prevFiles => [...prevFiles, response.data]);
+            })
+            .catch((error: any) => {
+                console.error('There was an error uploading the file!', error);
+            });
+    }
 
     useEffect(() => {
         axios.get('http://127.0.0.1:8000/pdfUpload/list/')
@@ -117,7 +127,12 @@ function Library() {
                         {uploadedFiles.map((file: FileObject, index: number) => (
                             <div className="files-styles" key={index}>
                                 <h3>{file.file.split('/media/uploadedPDFs/')[1]}</h3>
-                                <img className="menu-img-style" src={DeletePDf} alt="delete-PDF" />
+                                <img 
+                                    className="menu-img-style" 
+                                    src={DeletePDf} 
+                                    alt="delete-PDF" 
+                                    onClick={() => onDeleteFile(file.id)}
+                                />
                             </div>
                         ))}
                     </div>
