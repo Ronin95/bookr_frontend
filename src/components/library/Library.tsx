@@ -58,6 +58,14 @@ function Library() {
         file: any; name: string 
 };
     const [uploadedFiles, setUploadedFiles] = useState<FileObject[]>([]);
+    const [fileCount, setFileCount] = useState(0);
+
+    useEffect(() => {
+        axios.get('http://127.0.0.1:8000/pdfUpload/count/')
+            .then(response => {
+                setFileCount(response.data.count);
+            });
+    }, [uploadedFiles]);
 
     function onDeleteFile(id: number) {
         axios.delete(`http://127.0.0.1:8000/pdfUpload/delete/${id}/`)
@@ -102,26 +110,28 @@ function Library() {
             </div>
             <div className="fileUploader-Viewer-style">
                 <div className="fileUploader-style">
-                    <form method="post" encType="multipart/form-data" onSubmit={(e) => e.preventDefault()}>
-                    <FileUploader
-                        onCancel={() => stopFakeProgress()}
-                        onDrop={(acceptedFiles, rejectedFiles) => {
-                            if (acceptedFiles[0]?.type === 'application/pdf') {
-                                startFakeProgress();
-                                onFileUpload(acceptedFiles);
-                            } else {
-                                setErrorMessage('Please upload a PDF file only.');
-                            }
-                        }}
-                        progressAmount={progressAmount}
-                        progressMessage={
-                            progressAmount
-                                ? `Uploading... ${progressAmount}% of 100%`
-                                : ''
-                        }
-                        errorMessage={errorMessage}
-                    />
-                    </form>
+                    {fileCount < 3 ? (
+                        <form method="post" encType="multipart/form-data" onSubmit={(e) => e.preventDefault()}>
+                            <FileUploader
+                                onCancel={() => stopFakeProgress()}
+                                onDrop={(acceptedFiles, rejectedFiles) => {
+                                    if (acceptedFiles[0]?.type === 'application/pdf') {
+                                        startFakeProgress();
+                                        onFileUpload(acceptedFiles);
+                                    } else {
+                                        setErrorMessage('Please upload a PDF file only.');
+                                    }
+                                }}
+                                progressAmount={progressAmount}
+                                progressMessage={
+                                    progressAmount
+                                        ? `Uploading... ${progressAmount}% of 100%`
+                                        : ''
+                                }
+                                errorMessage={errorMessage}
+                            />
+                        </form>
+                    ) : null }
                     <h5>Choose PDF files only, otherwise page gets refreshed.</h5>
                     <div className="uploadedFiles-style">
                         {uploadedFiles.map((file: FileObject, index: number) => (
@@ -136,7 +146,7 @@ function Library() {
                             </div>
                         ))}
                     </div>
-                    <h5>Only 3 PDFs possible for upload.</h5>
+                    {fileCount >= 3 && <h5>Only 3 PDFs possible for upload.</h5>}
                 </div>
                 <div className="PDFView">
                     <div className="view-pdf-style">
