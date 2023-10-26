@@ -4,6 +4,8 @@ import DeletePDf from '../../assets/img/deletePDF.png';
 import './LibraryStyle.css';
 import { FileUploader } from "baseui/file-uploader";
 import axios from 'axios';
+import PDFViewer from "./PDFViewer";
+import { Link } from "react-router-dom";
 
 
 function useInterval(callback: () => void, delay: number | null) {
@@ -136,7 +138,11 @@ function Library() {
                     <div className="uploadedFiles-style">
                         {uploadedFiles.map((file: FileObject, index: number) => (
                             <div className="files-styles" key={index}>
-                                <h3>{file.file.split('/media/uploadedPDFs/')[1]}</h3>
+                                <h3>
+                                    <Link to={`/library/pdf/${file.file.split('/media/uploadedPDFs/')[1]}`}>
+                                        {file.file.split('/media/uploadedPDFs/')[1]}
+                                    </Link>
+                                </h3>
                                 <img 
                                     className="menu-img-style" 
                                     src={DeletePDf} 
@@ -150,15 +156,7 @@ function Library() {
                 </div>
                 <div className="PDFView">
                     <div className="view-pdf-style">
-                        <h1>VIEW</h1>
-                        <h1>PDF</h1>
-                        <h1>FILE</h1>
-                        <h1>HERE</h1>
-                        <h1>Teswert</h1>
-                        <h1>Test</h1>
-                        <h1>Tesasdft</h1>
-                        <h1>Testdf</h1>
-                        <h1>-----------------</h1>
+                        <PDFViewer />
                     </div>
                 </div>
             </div>
