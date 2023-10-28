@@ -5,11 +5,9 @@ import { useParams } from 'react-router-dom';
 
 
 function PDFViewer() {
-    const { filename } = useParams();
-    const fileUrl = `http://127.0.0.1:8000/media/uploadedPDFs/${filename}`;
     return (
         <div>
-            <embed src={fileUrl} type="application/pdf" width="100%" height="600px" />
+            <h1>Test</h1>
         </div>
     );
 }

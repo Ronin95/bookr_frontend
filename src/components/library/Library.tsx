@@ -6,6 +6,8 @@ import { FileUploader } from "baseui/file-uploader";
 import axios from 'axios';
 import PDFViewer from "./PDFViewer";
 import { Link } from "react-router-dom";
+require('dotenv').config();
+
 
 
 function useInterval(callback: () => void, delay: number | null) {
@@ -79,15 +81,26 @@ function Library() {
     function onFileUpload(acceptedFiles: (string | Blob)[]) {
         const formData = new FormData();
         formData.append('file', acceptedFiles[0]);
-    
-        axios.post('http://127.0.0.1:8000/pdfUpload/upload/', formData)
-            .then((response: any) => {
-                console.log('File uploaded successfully');
-                setUploadedFiles(prevFiles => [...prevFiles, response.data]);
-            })
-            .catch((error: any) => {
-                console.error('There was an error uploading the file!', error);
-            });
+
+        // Retrieve Adobe Api and Access Token from .env
+        const adobeClientID = process.env.ADOBE_CLIENT_ID;
+        const adobeAccessToken = process.env.ADOBE_ACCESS_TOKEN;
+
+        const headers = {
+            Authorization: `Bearer ${adobeAccessToken}`,
+            'x-api-key': adobeClientID,
+        };
+
+        axios.post('https://cloud.adobe.io/document-cloud/pdfextract/api/v1/jobs', formData, { headers })
+        .then(response => {
+            // Handle success - the response will contain a job ID which you can use to check the status of the processing job
+            const jobId = response.data.jobId;
+            console.log('Adobe processing started, job ID:', jobId);
+        })
+        .catch(error => {
+            console.error('There was an error uploading the file to Adobe!', error);
+        });
+
     }
 
     useEffect(() => {
@@ -139,9 +152,9 @@ function Library() {
                         {uploadedFiles.map((file: FileObject, index: number) => (
                             <div className="files-styles" key={index}>
                                 <h3>
-                                    <Link to={`/library/pdf/${file.file.split('/media/uploadedPDFs/')[1]}`}>
+                                    {/* <Link to={`/library/pdf/${file.file.split('/media/uploadedPDFs/')[1]}`}> */}
                                         {file.file.split('/media/uploadedPDFs/')[1]}
-                                    </Link>
+                                    {/* </Link> */}
                                 </h3>
                                 <img 
                                     className="menu-img-style" 
