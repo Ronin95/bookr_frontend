@@ -11,6 +11,7 @@ import ErrorPage from './components/error/ErrorPage';
 import './components/services/axiosSetup';
 import { AuthProvider } from './components/services/AuthContext';
 import PDFViewer from './components/library/PDFViewer';
+import React from 'react';
 
 const engine = new Styletron();
 
