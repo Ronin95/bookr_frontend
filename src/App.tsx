@@ -10,7 +10,7 @@ import RootLayout from './components/Root';
 import ErrorPage from './components/error/ErrorPage';
 import './components/services/axiosSetup';
 import { AuthProvider } from './components/services/AuthContext';
-import PDFViewer from './components/library/PDFViewer';
+// import PDFEmbed from './components/library/PDFEmbed';
 import React from 'react';
 
 const engine = new Styletron();
@@ -24,8 +24,8 @@ const App = () => {
                         <Header /> {/* Keep Header outside the Routes */}
                         <Routes>
                             <Route path="/" element={<RootLayout />}>
-                                <Route path="library" element={<Library />}>
-                                    <Route path="pdf/:filename" element={<PDFViewer />} />
+                                <Route path="library/*" element={<Library />}>
+                                    <Route path="pdf/:filename" />
                                 </Route>
                                 <Route path="tools" element={<Tools />} />
                                 <Route path="progress" element={<Progress />} />

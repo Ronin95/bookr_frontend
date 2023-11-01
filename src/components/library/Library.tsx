@@ -5,9 +5,7 @@ import './LibraryStyle.css';
 import { FileUploader } from "baseui/file-uploader";
 import axios from 'axios';
 import PDFViewer from "./PDFViewer";
-import { Link, Routes } from "react-router-dom";
-import { Route } from 'react-router-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { Link, useParams , Route, Routes } from "react-router-dom";
 
 
 function useInterval(callback: () => void, delay: number | null) {
@@ -98,11 +96,47 @@ function Library() {
             });
     }, []);
 
-    useEffect(() => {
+    useEffect(() => { // reload page if not selected PDF file
         if (errorMessage) {
             window.location.reload();
         }
     }, [errorMessage]);
+
+    function PDFEmbed() {
+        let { filename } = useParams();
+        console.log('The filename is: ');
+        return (
+            <embed 
+                src={`http://127.0.0.1:8000/media/uploadedPDFs/${filename}`} 
+                type="application/pdf" 
+                width="100%" 
+                height="100%"
+            />
+        );
+    }
+
+    function onLinkClick(filename: any) {
+        localStorage.setItem('__filename', filename);
+        console.log('Filename clicked in <Link> is: ', filename);
+    }
+
+    const [filename, setFilename] = useState(localStorage.getItem('__filename') || '');
+
+    useEffect(() => {
+        // Update the filename state whenever localStorage is updated
+        const handleStorageChange = () => {
+            setFilename(localStorage.getItem('__filename') || '');
+        };
+
+        // Attach the event listener to the window
+        window.addEventListener('storage', handleStorageChange);
+
+        // Cleanup the event listener when the component is unmounted
+        return () => {
+            window.removeEventListener('storage', handleStorageChange);
+        };
+    }, []);
+    
 
     return (
         <div className="library-container">
@@ -139,7 +173,10 @@ function Library() {
                     <div className="uploadedFiles-style">
                         {uploadedFiles.map((file: FileObject, index: number) => (
                             <div className="files-styles" key={index}>
-                                <Link to={`/library/pdf/${file.file.split('/media/uploadedPDFs/')[1]}`}>
+                                <Link 
+                                    to={`/library/pdf/${file.file.split('/media/uploadedPDFs/')[1]}`}
+                                    onClick={() => onLinkClick(file.file.split('/media/uploadedPDFs/')[1])}
+                                >
                                     {file.file.split('/media/uploadedPDFs/')[1]}
                                 </Link>
                                 <img 
@@ -155,9 +192,13 @@ function Library() {
                 </div>
                 <div className="PDFView">
                     <div className="view-pdf-style">
-                        <Routes>
-                            <Route path="/library/pdf/:filename" element={<PDFViewer />} />
-                        </Routes>
+                        <embed 
+                            src={`http://127.0.0.1:8000/media/uploadedPDFs/${filename}`} 
+                            type="application/pdf" 
+                            width="100%" 
+                            height="100%"
+                            className="pdf-embed"
+                        />
                     </div>
                 </div>
             </div>
@@ -166,3 +207,5 @@ function Library() {
 }
 
 export default Library;
+
+
