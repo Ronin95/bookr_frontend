@@ -1,3 +1,4 @@
+import React from 'react';
 import Header from './components/header/Header';
 import { Client as Styletron } from 'styletron-engine-atomic';
 import { Provider as StyletronProvider } from 'styletron-react';
@@ -10,8 +11,7 @@ import RootLayout from './components/Root';
 import ErrorPage from './components/error/ErrorPage';
 import './components/services/axiosSetup';
 import { AuthProvider } from './components/services/AuthContext';
-// import PDFEmbed from './components/library/PDFEmbed';
-import React from 'react';
+import PDFViewer from './components/library/PDFViewer';
 
 const engine = new Styletron();
 
@@ -25,7 +25,7 @@ const App = () => {
                         <Routes>
                             <Route path="/" element={<RootLayout />}>
                                 <Route path="library/*" element={<Library />}>
-                                    <Route path="pdf/:filename" />
+                                    <Route path="pdf/:filename" element={<PDFViewer filename={undefined} />}/>
                                 </Route>
                                 <Route path="tools" element={<Tools />} />
                                 <Route path="progress" element={<Progress />} />

@@ -53,12 +53,12 @@ function useFakeProgress(): [number, () => void, () => void] {
 function Library() {
     const [errorMessage, setErrorMessage] = useState<string>("");
     const [progressAmount, startFakeProgress, stopFakeProgress] = useFakeProgress();
+    const [uploadedFiles, setUploadedFiles] = useState<FileObject[]>([]);
+    const [fileCount, setFileCount] = useState(0);
     type FileObject = {
         id: number;
         file: any; name: string 
     };
-    const [uploadedFiles, setUploadedFiles] = useState<FileObject[]>([]);
-    const [fileCount, setFileCount] = useState(0);
 
     useEffect(() => {
         axios.get('http://127.0.0.1:8000/pdfUpload/count/')
@@ -87,7 +87,6 @@ function Library() {
                 console.error('There was an error uploading the file!', error);
             });
     }
-    
 
     useEffect(() => {
         axios.get('http://127.0.0.1:8000/pdfUpload/list/')
@@ -102,41 +101,7 @@ function Library() {
         }
     }, [errorMessage]);
 
-    function PDFEmbed() {
-        let { filename } = useParams();
-        console.log('The filename is: ');
-        return (
-            <embed 
-                src={`http://127.0.0.1:8000/media/uploadedPDFs/${filename}`} 
-                type="application/pdf" 
-                width="100%" 
-                height="100%"
-            />
-        );
-    }
-
-    function onLinkClick(filename: any) {
-        localStorage.setItem('__filename', filename);
-        console.log('Filename clicked in <Link> is: ', filename);
-    }
-
-    const [filename, setFilename] = useState(localStorage.getItem('__filename') || '');
-
-    useEffect(() => {
-        // Update the filename state whenever localStorage is updated
-        const handleStorageChange = () => {
-            setFilename(localStorage.getItem('__filename') || '');
-        };
-
-        // Attach the event listener to the window
-        window.addEventListener('storage', handleStorageChange);
-
-        // Cleanup the event listener when the component is unmounted
-        return () => {
-            window.removeEventListener('storage', handleStorageChange);
-        };
-    }, []);
-    
+    const [selectedFilename, setSelectedFilename] = useState(null);
 
     return (
         <div className="library-container">
@@ -175,7 +140,7 @@ function Library() {
                             <div className="files-styles" key={index}>
                                 <Link 
                                     to={`/library/pdf/${file.file.split('/media/uploadedPDFs/')[1]}`}
-                                    onClick={() => onLinkClick(file.file.split('/media/uploadedPDFs/')[1])}
+                                    onClick={() => setSelectedFilename(file.file.split('/media/uploadedPDFs/')[1])}
                                 >
                                     {file.file.split('/media/uploadedPDFs/')[1]}
                                 </Link>
@@ -192,13 +157,7 @@ function Library() {
                 </div>
                 <div className="PDFView">
                     <div className="view-pdf-style">
-                        <embed 
-                            src={`http://127.0.0.1:8000/media/uploadedPDFs/${filename}`} 
-                            type="application/pdf" 
-                            width="100%" 
-                            height="100%"
-                            className="pdf-embed"
-                        />
+                        <PDFViewer filename={selectedFilename} />
                     </div>
                 </div>
             </div>
