@@ -5,7 +5,7 @@ import './LibraryStyle.css';
 import { FileUploader } from "baseui/file-uploader";
 import axios from 'axios';
 import PDFViewer from "./PDFViewer";
-import { Link, useParams , Route, Routes } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
 function useInterval(callback: () => void, delay: number | null) {
@@ -55,6 +55,8 @@ function Library() {
     const [progressAmount, startFakeProgress, stopFakeProgress] = useFakeProgress();
     const [uploadedFiles, setUploadedFiles] = useState<FileObject[]>([]);
     const [fileCount, setFileCount] = useState(0);
+    const [selectedFilename, setSelectedFilename] = useState(null);
+    const [isPdfVisible, setIsPdfVisible] = useState(true);
     type FileObject = {
         id: number;
         file: any; name: string 
@@ -71,8 +73,9 @@ function Library() {
         axios.delete(`http://127.0.0.1:8000/pdfUpload/delete/${id}/`)
             .then(response => {
                 setUploadedFiles((prevFiles: any[]) => prevFiles.filter((file: { id: number; }) => file.id !== id));
+                setIsPdfVisible(false); // Hide the PDF components
             });
-    }
+    }    
 
     function onFileUpload(acceptedFiles: (string | Blob)[]) {
         const formData = new FormData();
@@ -101,7 +104,6 @@ function Library() {
         }
     }, [errorMessage]);
 
-    const [selectedFilename, setSelectedFilename] = useState(null);
 
     return (
         <div className="library-container">
@@ -140,7 +142,10 @@ function Library() {
                             <div className="files-styles" key={index}>
                                 <Link 
                                     to={`/library/pdf/${file.file.split('/media/uploadedPDFs/')[1]}`}
-                                    onClick={() => setSelectedFilename(file.file.split('/media/uploadedPDFs/')[1])}
+                                    onClick={() => {
+                                        setSelectedFilename(file.file.split('/media/uploadedPDFs/')[1]);
+                                        setIsPdfVisible(true); // Set the PDF viewer to be visible
+                                    }}
                                 >
                                     {file.file.split('/media/uploadedPDFs/')[1]}
                                 </Link>
@@ -150,16 +155,18 @@ function Library() {
                                     alt="delete-PDF" 
                                     onClick={() => onDeleteFile(file.id)}
                                 />
-                            </div>
+                            </div>                        
                         ))}
                     </div>
                     {fileCount >= 3 && <h5>Only 3 PDFs possible for upload.</h5>}
                 </div>
-                <div className="PDFView">
-                    <div className="view-pdf-style">
-                        <PDFViewer filename={selectedFilename} />
+                {isPdfVisible && (
+                    <div className="PDFView">
+                        <div className="view-pdf-style">
+                            <PDFViewer filename={selectedFilename} />
+                        </div>
                     </div>
-                </div>
+                )}
             </div>
         </div>
     );

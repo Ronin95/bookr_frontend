@@ -1,0 +1,56 @@
+.bstyle {
+    border-style: dotted;
+}
+
+.select-splitUp-PDF {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    padding-top: 10px;
+    padding-left: 20px;
+    width: 50%;
+}
+
+.delete-ChatHistory {
+    width: 400px;
+}
+
+.view-pdf-chat {
+    margin-top: 10px;
+    margin-left: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 82vw;
+    height: 58vh;
+    gap: 5px;
+}
+
+.pdf-frame {
+    width: 100%;
+    height: 100%;
+}
+
+.pdf-chat {
+    width: 100%;
+    height: 99%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chat-overview {
+    width: 99%;
+    height: 80%;
+}
+
+.message-input {
+    width: 100%;
+    height: 20%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}

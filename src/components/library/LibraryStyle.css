@@ -34,6 +34,10 @@
     z-index: 0; /* to make sure the line is below the logo and text */
 }
 
+.hidden {
+    display: none;
+}
+
 .fileUploader-style {
     display: flex;
     flex-direction: column;

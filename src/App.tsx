@@ -12,6 +12,9 @@ import ErrorPage from './components/error/ErrorPage';
 import './components/services/axiosSetup';
 import { AuthProvider } from './components/services/AuthContext';
 import PDFViewer from './components/library/PDFViewer';
+import PDFChat from './components/tools/PDFChat';
+import WebSearch from './components/tools/WebSearch';
+import Agent from './components/tools/Agent';
 
 const engine = new Styletron();
 
@@ -27,7 +30,11 @@ const App = () => {
                                 <Route path="library/*" element={<Library />}>
                                     <Route path="pdf/:filename" element={<PDFViewer filename={undefined} />}/>
                                 </Route>
-                                <Route path="tools" element={<Tools />} />
+                                <Route path="tools/*" element={<Tools />} >
+                                    <Route path="pdfchat/" element={<PDFChat />} />
+                                    <Route path="websearch/" element={<WebSearch />} />
+                                    <Route path="agent/" element={<Agent />} />
+                                </Route>
                                 <Route path="progress" element={<Progress />} />
                             </Route>
                             <Route path="*" element={<ErrorPage />} />
