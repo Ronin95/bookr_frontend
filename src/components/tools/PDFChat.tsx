@@ -79,15 +79,19 @@ function PDFChat() {
         const selectedFilename = localStorage.getItem('selectedSplitUpPDF');
     
         if (selectedFilename) {
-            // GET request to find the ID based on the filename
+            // GET request to find the ID and current user_messages based on the filename
             axios.get(`http://127.0.0.1:8000/pdfChat/textdata/${selectedFilename}`)
                 .then(response => {
-                    // Extract the ID from the response
+                    // Extract the ID and current user_messages from the response
                     const textDataId = response.data.id;
+                    const currentUserMessages = response.data.user_messages || [];
+    
+                    // Append the new message to the current user_messages
+                    const updatedUserMessages = [...currentUserMessages, textareaValue];
     
                     // PATCH request to update user_messages
                     axios.patch(`http://127.0.0.1:8000/pdfChat/textdata/update/${textDataId}/`, {
-                        text_content: textareaValue
+                        user_messages: updatedUserMessages
                     })
                     .then(updateResponse => {
                         console.log('Text updated:', updateResponse.data);
@@ -103,8 +107,8 @@ function PDFChat() {
         } else {
             console.log('No PDF selected');
         }
-    };      
-    
+    };
+        
     
     return (
         <div>
