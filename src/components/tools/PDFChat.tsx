@@ -41,15 +41,13 @@ function PDFChat() {
         if (params.value.length > 0) {
             const selectedPDF = params.value[0].id;
             localStorage.setItem('selectedSplitUpPDF', selectedPDF);
-            
             const newPdfSrc = `http://127.0.0.1:8000/pdfUpload/split-pdfs/${selectedPDF}`;
             setPdfSrc(newPdfSrc);
     
-            // Check if the entry already exists using the existing endpoint
             axios.get(`http://127.0.0.1:8000/pdfChat/textdata/${selectedPDF}`)
                 .then(response => {
-                    // Entry exists, handle accordingly
-                    console.log('Entry already exists:', response.data);
+                    // Entry exists, process PDF text
+                    processPDFText(selectedPDF);
                 })
                 .catch(error => {
                     if (error.response && error.response.status === 404) {
@@ -57,9 +55,11 @@ function PDFChat() {
                         axios.post('http://127.0.0.1:8000/pdfChat/textdata/', {
                             filename: selectedPDF,
                             user_messages: [],
-                            ai_messages: []
+                            ai_messages: [],
+                            text_chunks: []
                         }).then(response => {
-                            console.log('New conversation entry created:', response.data);
+                            // Now process PDF text
+                            processPDFText(selectedPDF);
                         }).catch(err => {
                             console.error('Error creating new conversation entry:', err);
                         });
@@ -72,6 +72,16 @@ function PDFChat() {
             setSelectedPdfId(null);
         }
     };
+    
+    const processPDFText = (pdfId: any) => { // create text_chunks from the selected PDF
+        axios.post(`http://127.0.0.1:8000/pdfChat/process_pdf/${pdfId}/`)
+            .then(response => {
+            })
+            .catch(error => {
+                console.error('Error processing PDF text:', error);
+            });
+    };
+    
     
 
     const handleChatButtonClick = () => {
