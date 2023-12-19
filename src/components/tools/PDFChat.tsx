@@ -23,6 +23,12 @@ function PDFChat() {
         console.log('Updated pdfSrc:', pdfSrc);
     }, [pdfSrc]);    
 
+    /**
+     * The `React.useEffect(() => { ... })` hook is used to perform side effects in a functional component. It allows you to
+     * run code in response to certain events, such as when the component mounts, when specific dependencies change, or when
+     * the component unmounts.
+     * In this case it only accesses the split up pdf files from the library
+     */
     React.useEffect(() => {
         fetch('http://127.0.0.1:8000/pdfUpload/split-pdfs/')
             .then(response => response.json())
@@ -73,6 +79,17 @@ function PDFChat() {
         }
     };
     
+    /**
+     * The `processPDFText` function is responsible for creating `text_chunks` from the selected PDF. It takes the `pdfId` as a
+     * parameter, which represents the ID of the selected PDF file.
+     * 
+     * @function
+     * @name processPDFText
+     * @kind variable
+     * @memberof PDFChat
+     * @param {any} pdfId
+     * @returns {void}
+     */
     const processPDFText = (pdfId: any) => { // create text_chunks from the selected PDF
         axios.post(`http://127.0.0.1:8000/pdfChat/process_pdf/${pdfId}/`)
             .then(response => {
