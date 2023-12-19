@@ -15,10 +15,31 @@ function PDFChat() {
     const [textareaValue, setTextareaValue] = React.useState<string>('');
     const [selectedPdfId, setSelectedPdfId] = React.useState(null);
 
+    /**
+     * The `handleTextareaChange` function is an event handler that is called when the value of the textarea input changes. It
+     * takes an event object as a parameter, which contains information about the event that triggered the function. In this
+     * case, the event object is of type `React.ChangeEvent<HTMLTextAreaElement>`, which means it is specifically for textarea
+     * elements.
+     * 
+     * @function
+     * @name handleTextareaChange
+     * @kind variable
+     * @memberof PDFChat
+     * @param {React.ChangeEvent<HTMLTextAreaElement>} event
+     * @returns {void}
+     */
     const handleTextareaChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         setTextareaValue(event.target.value);
     };
 
+    /**
+     * The `React.useEffect(() => { ... })` hook is used to perform side effects in a functional component. It allows you to
+     * run code in response to certain events, such as when the component mounts, when specific dependencies change, or when
+     * the component unmounts. In this specific case, the `useEffect` hook is used to fetch the split up PDF files from the
+     * server and update the `pdfFiles` state with the fetched data. The `useEffect` hook is only executed once, when the
+     * component mounts, because an empty dependency array `[]` is passed as the second argument.
+     * 
+     */
     React.useEffect(() => {
         console.log('Updated pdfSrc:', pdfSrc);
     }, [pdfSrc]);    
