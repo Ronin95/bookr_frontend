@@ -4,15 +4,16 @@
 
 .select-splitUp-PDF {
     display: flex;
-    flex-direction: row;
-    gap: 10px;
+    justify-content: space-between;
+    gap: 30px;
     padding-top: 10px;
-    padding-left: 20px;
-    width: 50%;
+    padding-right: 10px;
+    padding-left: 10px;
+    width: 80%;
 }
 
 .delete-ChatHistory {
-    width: 400px;
+    width: 300px;
 }
 
 .view-pdf-chat {
@@ -41,6 +42,8 @@
 }
 
 .chat-overview {
+    margin: 10px;
+    overflow-y: scroll;
     width: 99%;
     height: 80%;
 }
