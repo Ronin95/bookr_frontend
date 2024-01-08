@@ -7,6 +7,15 @@ import RegisterModal from '../signup/RegisterModal';
 import { ModalButton } from 'baseui/modal';
 import MainNavigation from '../services/MainNavigation';
 
+/**
+ * The `function Header() {` is defining a functional component called `Header`. This component is responsible for
+ * rendering the header section of a web page.
+ * 
+ * @function
+ * @name Header
+ * @kind function
+ * @returns {JSX.Element}
+ */
 function Header() {
   const [isOpenLogin, openLogin] = useState(false);
   const [isOpenRegister, openRegister] = useState(false);
@@ -18,7 +27,7 @@ function Header() {
       // Fetch user details if a token exists
       fetch('http://127.0.0.1:8000/accounts/details/', {
         headers: {
-          'Authorization': `Bearer ${token}`, // assuming you're using Bearer token authentication
+          'Authorization': `Bearer ${token}`,
         }
       })
       .then(res => res.json())
@@ -30,6 +39,16 @@ function Header() {
     }
   }, []); // This effect runs once, when the component mounts
 
+  /**
+   * The `const handleLogout` is a function that is called when the user clicks on the "Log out" button. It is responsible
+   * for removing the token from the local storage and clearing the username state, effectively logging the user out.
+   * 
+   * @function
+   * @name handleLogout
+   * @kind variable
+   * @memberof Header
+   * @returns {void}
+   */
   const handleLogout = () => {
     localStorage.removeItem('token');
     setUsername(''); // Clear username on logout
@@ -63,8 +82,6 @@ function Header() {
       {username && <MainNavigation/>}
     </div>
   );
-
-  // Else when the user logs in then display the Main Navigation below the Header
 }
 
 export default Header;

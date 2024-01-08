@@ -1,6 +1,17 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
 
+/**
+ * The `function PDFViewer({ filename }: {filename: any}) {` is defining a functional component called `PDFViewer`. It
+ * takes an object as a parameter with a property called `filename` of type `any`. This object is destructured in the
+ * function signature to directly access the `filename` property.
+ * 
+ * @function
+ * @name PDFViewer
+ * @kind function
+ * @param {{ filename: any }} { filename }
+ * @returns {JSX.Element}
+ */
 function PDFViewer({ filename }: {filename: any}) {
   useEffect(() => {
       if (filename) {

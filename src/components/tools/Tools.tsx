@@ -8,6 +8,15 @@ import Agent from './Agent';
 import './ToolsStyle.css';
 import { Outlet, Link } from 'react-router-dom';
 
+/**
+ * The `function Tools() {` is defining a functional component called `Tools`. This component returns a JSX element that
+ * represents a set of tools.
+ * 
+ * @function
+ * @name Tools
+ * @kind function
+ * @returns {JSX.Element}
+ */
 function Tools() {
 
     return(

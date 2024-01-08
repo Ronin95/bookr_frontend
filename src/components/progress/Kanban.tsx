@@ -17,7 +17,15 @@ interface TaskStatus {
   [key: string]: Column;
 }
 
-// React component with TypeScript
+/**
+ * The `function Kanban() { ... }` is defining a React functional component named `Kanban`. This component represents a
+ * Kanban board, which is a project management tool used to visualize and track the progress of tasks.
+ * 
+ * @function
+ * @name Kanban
+ * @kind function
+ * @returns {JSX.Element}
+ */
 function Kanban() {
 
   // Drag and drop handler with TypeScript annotations
@@ -72,6 +80,19 @@ function Kanban() {
     }
   };
 
+  /**
+   * The `updateTaskStatus` function is an asynchronous function that updates the status of a task in the backend. It takes
+   * two parameters: `taskId` and `newStatus`.
+   * 
+   * @async
+   * @function
+   * @name updateTaskStatus
+   * @kind variable
+   * @memberof Kanban
+   * @param {any} taskId
+   * @param {any} newStatus
+   * @returns {Promise<void>}
+   */
   const updateTaskStatus = async (taskId: any, newStatus: any) => {
     try {
       await axios.put(`http://127.0.0.1:8000/kanban/tasks/update-status/${taskId}/`, {
@@ -82,6 +103,18 @@ function Kanban() {
     }
   };
   
+  /**
+   * The line `const initialTaskStatus: TaskStatus = {` is declaring a constant variable named `initialTaskStatus` and
+   * assigning it a value of an object of type `TaskStatus`. This object represents the initial state of the Kanban board
+   * columns. It has three properties: `toDo`, `inProgress`, and `done`, each representing a column in the Kanban board. Each
+   * column has a `name` property and an `items` property, which is an array of `Task` objects.
+   * 
+   * @constant
+   * @name initialTaskStatus
+   * @kind variable
+   * @memberof Kanban
+   * @type {TaskStatus}
+   */
   const initialTaskStatus: TaskStatus = {
     toDo: { name: "To do", items: [] },
     inProgress: { name: "In Progress", items: [] },
@@ -90,6 +123,11 @@ function Kanban() {
 
   const [columns, setColumns] = useState<TaskStatus>(initialTaskStatus);
 
+  /**
+   * The `useEffect(() => { ... })` hook is used to perform side effects in a functional component. In this specific code, it
+   * is used to fetch tasks from the backend API and update the state of the `columns` variable with the fetched data.
+   * 
+   */
   useEffect(() => {
     const fetchTasks = async () => {
       try {

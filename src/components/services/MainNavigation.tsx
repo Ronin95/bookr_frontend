@@ -4,6 +4,15 @@ import Library from '../../assets/img/library.png';
 import Progress from '../../assets/img/progress.png';
 import Tools from '../../assets/img/tools.png';
 
+/**
+ * The `function MainNavigation() {` is defining a functional component called `MainNavigation`. This component returns a
+ * JSX element, which represents the navigation bar of a website.
+ * 
+ * @function
+ * @name MainNavigation
+ * @kind function
+ * @returns {JSX.Element}
+ */
 function MainNavigation() {
     return (
         <header>

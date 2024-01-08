@@ -9,6 +9,14 @@ import './PDFChat.css';
 
 type PDFFileOption = { label: string; id: string };
 
+/**
+ * The above code is defining a function called PDFChat.
+ * 
+ * @function
+ * @name PDFChat
+ * @kind function
+ * @returns {JSX.Element}
+ */
 function PDFChat() {
     interface ChatMessage {
         sender: string;
@@ -73,6 +81,17 @@ function PDFChat() {
             .catch(error => console.error('Error fetching PDF files:', error));
     }, []);
 
+    /**
+     * The above code defines a function called handlePDFSelect that takes in a parameter called params. The purpose or
+     * functionality of the function is not clear from the provided code snippet.
+     * 
+     * @function
+     * @name handlePDFSelect
+     * @kind variable
+     * @memberof PDFChat
+     * @param {any} params
+     * @returns {void}
+     */
     const handlePDFSelect = (params: any) => {
         fetchChatHistory();
         setSelectedFile(params.value);
@@ -137,6 +156,16 @@ function PDFChat() {
             });
     };
 
+    /**
+     * The above code is defining an asynchronous function called `handleDelete`.
+     * 
+     * @async
+     * @function
+     * @name handleDelete
+     * @kind variable
+     * @memberof PDFChat
+     * @returns {Promise<void>}
+     */
     const handleDelete = async () => {
         const selectedFilename = localStorage.getItem('selectedSplitUpPDF');
         if (selectedFilename) {
@@ -153,6 +182,15 @@ function PDFChat() {
         window.location.reload();
     };
     
+    /**
+     * The above code is defining a function called handleChatButtonClick. This function saves / and or .get(s) the user input to / from the rest api
+     * 
+     * @function
+     * @name handleChatButtonClick
+     * @kind variable
+     * @memberof PDFChat
+     * @returns {void}
+     */
     const handleChatButtonClick = () => {
         setIsSpinnerVisible(true);
 
@@ -205,6 +243,16 @@ function PDFChat() {
         }
     };
 
+    /**
+     * The above code is defining a function called handleAIResponse. The function basically takes the last input from the user - sends it to the
+     * django backend code and through Chroma and the OpenAIEmbeddings and returns a response - Look for the bookr_backend repository for more info
+     * 
+     * @function
+     * @name handleAIResponse
+     * @kind variable
+     * @memberof PDFChat
+     * @returns {void}
+     */
     const handleAIResponse = () => {
         const selectedFilename = localStorage.getItem('selectedSplitUpPDF');
     
@@ -260,6 +308,16 @@ function PDFChat() {
         }
     };
     
+    /**
+     * The above code defines an asynchronous function called fetchChatHistory.
+     * 
+     * @async
+     * @function
+     * @name fetchChatHistory
+     * @kind variable
+     * @memberof PDFChat
+     * @returns {Promise<void>}
+     */
     const fetchChatHistory = async () => {
         const selectedFilename = localStorage.getItem('selectedSplitUpPDF');
         if (selectedFilename) {

@@ -6,6 +6,16 @@ import './ProgressStyle.css';
 import { Outlet, Link } from 'react-router-dom';
 
 
+/**
+ * The `function Progress() {` is defining a functional component named `Progress`. This component returns a JSX element
+ * that represents a progress bar with different tools/icons. It also includes links to different routes within the
+ * application.
+ * 
+ * @function
+ * @name Progress
+ * @kind function
+ * @returns {JSX.Element}
+ */
 function Progress() {
     return(
         <div className='progress-style'>

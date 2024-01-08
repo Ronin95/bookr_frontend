@@ -1,8 +1,6 @@
 import * as React from 'react';
-import {Button} from 'baseui/button';
 import {
   Modal,
-  ModalHeader,
   ModalBody,
   ModalFooter,
   ModalButton,
@@ -27,6 +25,12 @@ const EditNoteModal: React.FC<EditNoteModalProps> = ({ isOpen, onClose, task, on
   const [titleValue, setTitleValue] = React.useState<string>('');
   const [textareaValue, setTextareaValue] = React.useState<string>('');
 
+  /**
+   * The `React.useEffect(() => {` is a hook in React that allows you to perform side effects in functional components. In
+   * this specific code, the `useEffect` hook is used to update the state of the `titleValue` and `textareaValue` variables
+   * whenever the `task` prop changes.
+   * 
+   */
   React.useEffect(() => {
     if (task) {
       setTitleValue(task.title);
@@ -34,6 +38,18 @@ const EditNoteModal: React.FC<EditNoteModalProps> = ({ isOpen, onClose, task, on
     }
   }, [task]);
 
+  /**
+   * The `handleUpdate` function is responsible for updating the task by making a PATCH request to the server. It uses the
+   * `axios.patch` method to send the updated title and description to the server endpoint. If the request is successful, it
+   * logs the response data to the console, closes the modal by calling the `onClose` function, and calls the `onUpdated`
+   * function to refresh the tasks. If there is an error, it logs the error to the console.
+   * 
+   * @function
+   * @name handleUpdate
+   * @kind variable
+   * @memberof EditNoteModal
+   * @returns {void}
+   */
   const handleUpdate = () => {
     if (task) {
       axios.patch(`http://127.0.0.1:8000/kanban/tasks/${task.id}/`, {
@@ -81,7 +97,3 @@ const EditNoteModal: React.FC<EditNoteModalProps> = ({ isOpen, onClose, task, on
 };
 
 export default EditNoteModal;
-
-function onUpdated() {
-  throw new Error('Function not implemented.');
-}

@@ -8,6 +8,18 @@ import PDFViewer from "./PDFViewer";
 import { Link } from "react-router-dom";
 
 
+/**
+ * The `useInterval` function is a custom React hook that allows you to repeatedly call a callback function at a specified
+ * interval. It takes two parameters: `callback`, which is the function to be called, and `delay`, which is the time
+ * interval between each call.
+ * 
+ * @function
+ * @name useInterval
+ * @kind function
+ * @param {() => void} callback
+ * @param {number | null} delay
+ * @returns {void}
+ */
 function useInterval(callback: () => void, delay: number | null) {
     const savedCallback = useRef(callback);
 
@@ -26,6 +38,17 @@ function useInterval(callback: () => void, delay: number | null) {
     }, [delay]);
 }
 
+/**
+ * The `useFakeProgress` function is a custom React hook that returns an array with three elements: a number representing
+ * the fake progress, a function to start the fake progress, and a function to stop the fake progress.
+ * 
+ * @function
+ * @name useFakeProgress
+ * @kind function
+ * @param {() => void} ): [number
+ * @param {any} (
+ * @returns {void]}
+ */
 function useFakeProgress(): [number, () => void, () => void] {
     const [fakeProgress, setFakeProgress] = useState<number>(0);
     const [isActive, setIsActive] = useState<boolean>(false);
@@ -50,6 +73,16 @@ function useFakeProgress(): [number, () => void, () => void] {
     return [fakeProgress, startFakeProgress, stopFakeProgress];
 }
 
+/**
+ * The `Library` function is a React component that renders a library page. It contains state variables and functions for
+ * uploading and deleting PDF files, as well as displaying the uploaded files and a PDF viewer. The component also makes
+ * use of custom React hooks (`useFakeProgress` and `useInterval`) to simulate a progress bar during file upload.
+ * 
+ * @function
+ * @name Library
+ * @kind function
+ * @returns {JSX.Element}
+ */
 function Library() {
     const [errorMessage, setErrorMessage] = useState<string>("");
     const [progressAmount, startFakeProgress, stopFakeProgress] = useFakeProgress();
@@ -69,6 +102,17 @@ function Library() {
             });
     }, [uploadedFiles]);
 
+    /**
+     * The `onDeleteFile` function is a callback function that is called when a user clicks on the delete button for a specific
+     * file in the library. It takes the `id` of the file as a parameter.
+     * 
+     * @function
+     * @name onDeleteFile
+     * @kind function
+     * @memberof Library
+     * @param {number} id
+     * @returns {void}
+     */
     function onDeleteFile(id: number) {
         axios.delete(`http://127.0.0.1:8000/pdfUpload/delete/${id}/`)
             .then(response => {
@@ -77,6 +121,17 @@ function Library() {
             });
     }    
 
+    /**
+     * The `onFileUpload` function is a callback function that is called when a user uploads a file. It takes an array of
+     * accepted files as a parameter.
+     * 
+     * @function
+     * @name onFileUpload
+     * @kind function
+     * @memberof Library
+     * @param {(string | Blob)[]} acceptedFiles
+     * @returns {void}
+     */
     function onFileUpload(acceptedFiles: (string | Blob)[]) {
         const formData = new FormData();
         formData.append('file', acceptedFiles[0]);
