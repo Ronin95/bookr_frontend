@@ -1,0 +1,35 @@
+.tasks-styles {
+    display: flex;
+    
+}
+
+.card-style {
+    width: 300px;
+    margin: 20px;
+    background-color: #D9D9D9;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+.title-img {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.options-style {
+    display: flex;
+    gap: 10px;
+}
+
+.title-img img {
+    width: 30px;
+    cursor: pointer;
+}
+
+.desc-style {
+    min-height: 150px;
+    overflow-y: auto;
+}
+

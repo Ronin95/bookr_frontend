@@ -1,0 +1,20 @@
+.create-notes-style {
+    width: 800px;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.titleValue-Input {
+    margin: 10px;
+}
+
+.textareaValue-Input {
+    margin: 10px;
+}
+
+.button-save {
+    display: flex;
+    justify-content: center;
+}

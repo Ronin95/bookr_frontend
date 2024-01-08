@@ -15,6 +15,9 @@ import PDFViewer from './components/library/PDFViewer';
 import PDFChat from './components/tools/PDFChat';
 import WebSearch from './components/tools/WebSearch';
 import Agent from './components/tools/Agent';
+import CreateNote from './components/progress/CreateNote';
+import ManageNote from './components/progress/ManageNote';
+import Kanban from './components/progress/Kanban';
 
 const engine = new Styletron();
 
@@ -35,7 +38,11 @@ const App = () => {
                                     <Route path="websearch/" element={<WebSearch />} />
                                     <Route path="agent/" element={<Agent />} />
                                 </Route>
-                                <Route path="progress" element={<Progress />} />
+                                <Route path="progress" element={<Progress />} >
+                                    <Route path="createNote" element={<CreateNote/>} />
+                                    <Route path="manageNote" element={<ManageNote />} />
+                                    <Route path="kanban" element={<Kanban/>} />
+                                </Route>
                             </Route>
                             <Route path="*" element={<ErrorPage />} />
                         </Routes>

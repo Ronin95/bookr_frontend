@@ -153,7 +153,6 @@ function PDFChat() {
         window.location.reload();
     };
     
-    
     const handleChatButtonClick = () => {
         setIsSpinnerVisible(true);
 
@@ -172,7 +171,7 @@ function PDFChat() {
                     const newUserMessage = {
                         sender: "user",
                         message: textareaValue,
-                        timestamp: new Date().toISOString() // Optionally add a timestamp
+                        timestamp: new Date().toISOString()
                     };
     
                     // Append the new message to the current user_messages and create a new chat history entry
@@ -205,7 +204,6 @@ function PDFChat() {
             console.log('No PDF selected');
         }
     };
-
 
     const handleAIResponse = () => {
         const selectedFilename = localStorage.getItem('selectedSplitUpPDF');
@@ -262,7 +260,6 @@ function PDFChat() {
         }
     };
     
-    // Function to fetch chat history
     const fetchChatHistory = async () => {
         const selectedFilename = localStorage.getItem('selectedSplitUpPDF');
         if (selectedFilename) {
@@ -277,8 +274,6 @@ function PDFChat() {
             }
         }
     };    
-    
-    
     
     return (
         <div>

@@ -27,7 +27,7 @@ function MainNavigation() {
                 <div className="links-style">
                     <div className='txt-logo'>
                         <img className='img-style' src={Progress} alt="progress-logo" />
-                        <Link to="/progress">Progress</Link>
+                        <Link to="/progress">Kanban</Link>
                     </div>
                     <div className="rectangleBlue"></div>
                 </div>

@@ -27,3 +27,12 @@
 .img-style-progress {
     width: 30px;
 }
+
+.tool-chosen {
+    margin: 10px;
+}
+
+.progress-bar-display {
+    display: flex;
+    height: 600px;
+}
