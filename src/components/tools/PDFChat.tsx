@@ -6,6 +6,7 @@ import { Button, SHAPE } from "baseui/button";
 import { Spinner } from "baseui/spinner";
 import axios from 'axios';
 import './PDFChat.css';
+import { useNavigate } from 'react-router-dom';
 
 type PDFFileOption = { label: string; id: string };
 
@@ -31,6 +32,7 @@ function PDFChat() {
     const [selectedPdfId, setSelectedPdfId] = React.useState(null);
     const [isSpinnerVisible, setIsSpinnerVisible] = React.useState(false);
     const [chatHistory, setChatHistory] = React.useState<ChatMessage[]>([]);
+    const navigate = useNavigate();
 
 
     /**
@@ -179,7 +181,7 @@ function PDFChat() {
         } else {
             // Handle case where no filename is found in localStorage
         }
-        window.location.reload();
+        navigate('/tools/');
     };
     
     /**
@@ -367,9 +369,9 @@ function PDFChat() {
                                 .map((message, index) => (
                                     <div key={message.timestamp + index}> {/* Use a combination of timestamp and index */}
                                         {message.sender === "user" ? (
-                                            <p>You: {message.message}</p>
+                                            <p className="you-style-text">You: {message.message}</p>
                                         ) : (
-                                            <p>AI: {message.message.replace(/\n\n/g, '')}</p>
+                                            <p className="ai-style-text">AI: {message.message.replace(/\n\n/g, '')}</p>
                                         )}
                                     </div>
                             ))}

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/img/logo-v1.png';
 import login from '../../assets/img/login.png';
 import './Header.css';
@@ -6,6 +7,8 @@ import LoginModal from '../signup/LoginModal';
 import RegisterModal from '../signup/RegisterModal';
 import { ModalButton } from 'baseui/modal';
 import MainNavigation from '../services/MainNavigation';
+import BookrCoverImg from '../../assets/img/BookrCoverImg.png';
+
 
 /**
  * The `function Header() {` is defining a functional component called `Header`. This component is responsible for
@@ -20,6 +23,7 @@ function Header() {
   const [isOpenLogin, openLogin] = useState(false);
   const [isOpenRegister, openRegister] = useState(false);
   const [username, setUsername] = useState(''); // State to store logged-in user's name
+  const [isCoverImgVisible, setCoverImgVisible] = useState(true);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -57,7 +61,7 @@ function Header() {
   return (
     <div>
       <div className='header-style'>
-        <img src={logo} alt="logo" className='logo-img-style'/>
+      <img src={logo} alt="logo" className='logo-img-style' />
         {username ? (
           // If user is logged in
           <>
@@ -79,7 +83,10 @@ function Header() {
         </div>
       )}
       </div>
-      {username && <MainNavigation/>}
+      {username && <MainNavigation onHideCoverImg={() => setCoverImgVisible(false)} />}
+      <div className='coverimg-style'>
+        {isCoverImgVisible && <img src={BookrCoverImg} alt="cover-img" className="bookr-cover-img"/>}
+      </div>
     </div>
   );
 }

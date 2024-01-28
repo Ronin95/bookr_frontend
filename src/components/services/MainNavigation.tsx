@@ -4,6 +4,10 @@ import Library from '../../assets/img/library.png';
 import Progress from '../../assets/img/progress.png';
 import Tools from '../../assets/img/tools.png';
 
+interface MainNavigationProps {
+    onHideCoverImg: () => void;
+}
+
 /**
  * The `function MainNavigation() {` is defining a functional component called `MainNavigation`. This component returns a
  * JSX element, which represents the navigation bar of a website.
@@ -13,10 +17,14 @@ import Tools from '../../assets/img/tools.png';
  * @kind function
  * @returns {JSX.Element}
  */
-function MainNavigation() {
+function MainNavigation({ onHideCoverImg }: MainNavigationProps) {
+    const handleLinkClick = () => {
+      onHideCoverImg();
+    };
+
     return (
         <header>
-            <nav className='overall'>
+            <nav className='overall' onClick={handleLinkClick}>
                 <div className="links-style">
                     <div className='txt-logo'>
                         <img className='img-style' src={Library} alt="library-logo" />

@@ -85,7 +85,11 @@
     top: 5px;
 }
 
-/* .header-after-login {
+.coverimg-style {
     display: flex;
-    flex-direction: column;
-} */
+    justify-content: center;
+}
+
+.bookr-cover-img {
+    width: 600px;
+}

@@ -27,7 +27,7 @@ const App = () => {
             <BaseProvider theme={LightTheme}>
                 <AuthProvider>
                     <Router>
-                        <Header /> {/* Keep Header outside the Routes */}
+                        <Header />
                         <Routes>
                             <Route path="/" element={<RootLayout />}>
                                 <Route path="library/*" element={<Library />}>

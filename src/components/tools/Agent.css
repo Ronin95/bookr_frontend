@@ -1,18 +1,22 @@
+.agent-user-style {
+    width: 80vw;
+    height: 65vh;
+}
+
 .user-agent-display {
     margin: 10px;
     padding: 10px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    border-style: dotted;
     max-width: 100%;
-    height: 500px;
+    height: 560px;
 }
 
 .textarea-btn  {
+    padding: 2px;
     display: flex;
     gap: 10px;
-    /* border-style: dotted; */
     justify-content: center;
     align-items: center;
 }
@@ -22,5 +26,26 @@
 }
 
 .agent-output {
-    overflow-x: auto;
+    height: 48vh;
+    overflow-y: scroll;
+}
+
+.user-style {
+    border-style: dotted;
+    border: 3px solid rgb(30, 143, 248);
+    background-color: rgb(82, 169, 250);
+    border-radius: 10px;
+    color: white;
+    padding: 5px;
+    text-align: right;
+}
+
+.agent-style {
+    border-style: dotted;
+    border: 3px solid rgb(255, 57, 22);
+    background-color: rgb(252, 107, 107);
+    border-radius: 10px;
+    color: white;
+    padding: 5px;
+    text-align: left;
 }

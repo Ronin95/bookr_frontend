@@ -1,0 +1,23 @@
+.search-btn-style {
+    padding: 5px 20px;
+    width: 80vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+}
+
+.search-style {
+    width: 70vw;
+}
+
+.search-results-displayed {
+    border-style: dotted;
+    width: 80vw;
+    height: 47vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    gap: 5px;
+}
