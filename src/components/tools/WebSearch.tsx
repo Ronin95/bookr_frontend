@@ -15,6 +15,17 @@ function WebSearch() {
         duckduckgo_result: ''
     });
 
+    /**
+     * The `handleSearch` function is responsible for handling the search functionality. When the user clicks on the search
+     * button, this function is called. It sets the `isLoading` state to `true` to indicate that the search is in progress. It
+     * also sets the `searchPerformed` state to `true` to indicate that a search has been performed.
+     * 
+     * @function
+     * @name handleSearch
+     * @kind variable
+     * @memberof WebSearch
+     * @returns {void}
+     */
     const handleSearch = () => {
         setIsLoading(true);
         setSearchPerformed(true); // Set search performed to true
@@ -29,6 +40,17 @@ function WebSearch() {
     };
     
 
+    /**
+     * The `fetchLatestResult` function is responsible for making a GET request to retrieve the latest search result from the
+     * server. It uses the Axios library to send the request to the specified URL
+     * (`http://127.0.0.1:8000/websearch/userSearch/`).
+     * 
+     * @function
+     * @name fetchLatestResult
+     * @kind variable
+     * @memberof WebSearch
+     * @returns {void}
+     */
     const fetchLatestResult = () => {
         axios.get('http://127.0.0.1:8000/websearch/userSearch/')
             .then(response => {
