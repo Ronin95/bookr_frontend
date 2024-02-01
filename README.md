@@ -9,7 +9,7 @@ And AI Agent (altough still experimental) works by you giving it an objective, i
 Last but not least it hast a Kanban Management, where a user can create Notes, Edit them and move them
 around on the Kanban.
 
-I have even created a video for you <a href="https://www.loom.com/share/d0f86428a00a4cb794971be60ae4d1f5?sid=55f4c09b-4dc2-4890-b118-adb75d36238e">here</a> where you can view the project.
+I have even created a video for you <a target="_blank" href="https://www.loom.com/share/d0f86428a00a4cb794971be60ae4d1f5?sid=55f4c09b-4dc2-4890-b118-adb75d36238e">here</a> where you can view the project.
 I hope you enjoyed it and leave feedback.
 
 Thank you.
